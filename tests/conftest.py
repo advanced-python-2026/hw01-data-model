@@ -16,9 +16,7 @@ def _read_student_name() -> str:
         if line.startswith("name:"):
             name = line.split(":", 1)[1].strip()
             if name == "Фамилия Имя Отчество":
-                raise RuntimeError(
-                    "Заполни своё ФИО в STUDENT.md (поле 'name:')"
-                )
+                raise RuntimeError("Заполни своё ФИО в STUDENT.md (поле 'name:')")
             return name
     raise RuntimeError("Не найдено поле 'name:' в STUDENT.md")
 
