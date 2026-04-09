@@ -30,7 +30,7 @@ def _run_cli(*args: str, stdin: str | None = None) -> subprocess.CompletedProces
 def sample_file(tmp_path: Path) -> Path:
     """Create a sample text file for testing."""
     p = tmp_path / "sample.txt"
-    p.write_text("hello world\nfoo bar baz\nqux\n", encoding="utf-8")
+    p.write_text("hello world\nfoo bar baz\nqux\n", encoding="utf-8", newline="")
     return p
 
 
@@ -39,7 +39,7 @@ def multi_line_file(tmp_path: Path) -> Path:
     """Create a file with many lines for tail testing."""
     p = tmp_path / "lines.txt"
     lines = [f"line {i}" for i in range(1, 21)]
-    p.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    p.write_text("\n".join(lines) + "\n", encoding="utf-8", newline="")
     return p
 
 
@@ -97,7 +97,7 @@ class TestWc:
 
     def test_multiple_files(self, sample_file: Path, tmp_path: Path) -> None:
         f2 = tmp_path / "second.txt"
-        f2.write_text("a b c\n", encoding="utf-8")
+        f2.write_text("a b c\n", encoding="utf-8", newline="")
         result = _run_cli(str(sample_file), str(f2))
         assert result.returncode == 0
         # Should have output for both files
@@ -160,7 +160,7 @@ class TestNl:
 
     def test_single_line(self, tmp_path: Path) -> None:
         f = tmp_path / "one.txt"
-        f.write_text("only line\n", encoding="utf-8")
+        f.write_text("only line\n", encoding="utf-8", newline="")
         result = _run_cli(str(f))
         assert result.returncode == 0
         assert "1" in result.stdout
@@ -175,7 +175,7 @@ class TestNl:
 
     def test_multiple_files(self, sample_file: Path, tmp_path: Path) -> None:
         f2 = tmp_path / "extra.txt"
-        f2.write_text("line a\nline b\n", encoding="utf-8")
+        f2.write_text("line a\nline b\n", encoding="utf-8", newline="")
         result = _run_cli(str(sample_file), str(f2))
         assert result.returncode == 0
         # Should number lines from both files
@@ -237,7 +237,7 @@ class TestTail:
 
     def test_single_line_file(self, tmp_path: Path) -> None:
         f = tmp_path / "single.txt"
-        f.write_text("only\n", encoding="utf-8")
+        f.write_text("only\n", encoding="utf-8", newline="")
         result = _run_cli("-n", "5", str(f))
         assert result.returncode == 0
         lines = result.stdout.strip().splitlines()
