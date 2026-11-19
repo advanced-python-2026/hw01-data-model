@@ -22,7 +22,7 @@ def _run_cli(*args: str, stdin: str | None = None) -> subprocess.CompletedProces
         capture_output=True,
         text=True,
         timeout=10,
-        cwd=Path(__file__).resolve().parent.parent,
+        cwd=Path.cwd(),
     )
 
 
