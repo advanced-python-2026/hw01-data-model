@@ -1,6 +1,6 @@
 # ДЗ 1 — Модель данных, CLI, пакетирование
 
-Полный текст задания: https://advanced-python.ru/advanced-python/homework/hw01
+Полный текст задания: https://courses.sabal.pro/advanced-python/homework/hw01
 
 ## Быстрый старт
 
